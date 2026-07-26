@@ -18,3 +18,12 @@ function required(name: string): string {
 
 export const JWT_SECRET = required('JWT_SECRET');
 export const PORT = Number(process.env.PORT) || 5000;
+
+/**
+ * Comma-separated list of origins allowed to call this API. Leave unset
+ * to allow any origin, which is the sensible default for local work.
+ */
+export const CORS_ORIGINS = (process.env.CORS_ORIGINS ?? '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);

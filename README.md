@@ -32,9 +32,10 @@ npm run dev             # http://localhost:5000
 
 | Variable     | Purpose                                            |
 | ------------ | -------------------------------------------------- |
-| `MONGO_URI`  | MongoDB connection string                           |
-| `JWT_SECRET` | Long random string used to sign tokens              |
-| `PORT`       | Optional, defaults to `5000`                        |
+| `MONGO_URI`     | MongoDB connection string                        |
+| `JWT_SECRET`    | Long random string used to sign tokens           |
+| `PORT`          | Optional, defaults to `5000`                     |
+| `CORS_ORIGINS`  | Optional, comma-separated allowed origins. Unset allows any. |
 
 The server exits at startup if `MONGO_URI` or `JWT_SECRET` is missing,
 rather than failing later on the first request.
@@ -84,8 +85,13 @@ The API the client talks to is set by `VITE_API_URL` in
 [`client/.env.production`](client/.env.production). It is baked in at
 build time, not read at runtime, so changing it means rebuilding.
 
-The server builds to `dist/`, so a host should run `npm run build` and
-start with `npm start`.
+The API deploys to Render as a Node web service, configured in
+[`render.yaml`](render.yaml): it builds with `npm ci && npm run build`
+and starts with `npm start`. `MONGO_URI` must be set in the Render
+dashboard; `JWT_SECRET` is generated there on first deploy.
+
+On Render's free tier the service sleeps when idle, so the first request
+after a quiet spell takes 30–50 seconds to wake.
 
 ## API
 

@@ -1,4 +1,4 @@
-import { PORT } from './config/env.js';
+import { PORT, CORS_ORIGINS } from './config/env.js';
 import connectDB from './config/db.js';
 import express from 'express';
 import type { Request, Response } from 'express';
@@ -11,7 +11,9 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+// With CORS_ORIGINS unset every origin is allowed, which is what you
+// want locally. Setting it in production limits the API to your own site.
+app.use(cors(CORS_ORIGINS.length ? { origin: CORS_ORIGINS } : undefined));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
