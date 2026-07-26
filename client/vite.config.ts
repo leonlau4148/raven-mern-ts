@@ -7,4 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 // utility classes straight from index.css (no PostCSS config needed in v4).
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  // Must match the repo name — GitHub Pages serves the site from a
+  // subpath, and assets 404 if this is wrong.
+  base: '/raven-mern-ts/',
 });

@@ -59,6 +59,7 @@ build.
 | client   | `npm run build`     | Typecheck, then build to `dist/`        |
 | client   | `npm run typecheck` | Typecheck only                          |
 | client   | `npm run preview`   | Serve the production build locally      |
+| client   | `npm run deploy`    | Build and publish to GitHub Pages       |
 | server   | `npm run dev`       | Run from TypeScript sources, watching   |
 | server   | `npm run build`     | Compile to `dist/`                      |
 | server   | `npm start`         | Run the compiled build                  |
@@ -66,15 +67,21 @@ build.
 
 ## Deployment notes
 
-The client deploys to Render as a Static Site, configured in
-[`render.yaml`](render.yaml). Pushing to `main` triggers a rebuild.
+The frontend is hosted on GitHub Pages and the API on Render.
 
-Because the app uses `BrowserRouter`, the host must serve `index.html`
-for any unmatched path — otherwise refreshing on `/login` returns a 404.
-That rewrite is part of `render.yaml`; any other host needs the
-equivalent SPA fallback.
+Run `npm run deploy` from `client/` to publish. It builds and pushes
+`dist/` to the `gh-pages` branch; Pages must be pointed at that branch
+once, under Settings → Pages.
 
-The API the client talks to is set by `VITE_API_URL`. It is baked in at
+Two constraints come from Pages specifically. It serves the site from
+`/<repo-name>/`, so `base` in
+[`client/vite.config.ts`](client/vite.config.ts) must match the
+repository name or every asset 404s. And it cannot rewrite unmatched
+paths to `index.html`, which is why the app uses `HashRouter` — URLs
+carry a `#`, but a refresh on `/#/login` works instead of 404ing.
+
+The API the client talks to is set by `VITE_API_URL` in
+[`client/.env.production`](client/.env.production). It is baked in at
 build time, not read at runtime, so changing it means rebuilding.
 
 The server builds to `dist/`, so a host should run `npm run build` and
