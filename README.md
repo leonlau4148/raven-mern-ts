@@ -5,6 +5,12 @@ A MERN expense tracker written in TypeScript, styled with Tailwind CSS.
 Track income and expenses against a running balance. JWT authentication,
 per-user transaction history, amounts in PHP.
 
+- **Live app:** https://leonlau4148.github.io/raven-mern-ts/
+- **API:** https://raven-mern-ts.onrender.com/api/health
+
+The API runs on Render's free tier and sleeps when idle, so the first
+sign-in after a quiet spell takes 30–50 seconds while it wakes.
+
 ## Stack
 
 **Client** — React 19, TypeScript, Vite, Tailwind CSS v4, React Router,
