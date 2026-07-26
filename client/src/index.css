@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------
+   Raven Finance — matte dark theme
+   Type: Space Grotesk (display) / Inter (body) / JetBrains Mono (numbers)
+
+   Tailwind v4 is CSS-first: this @theme block IS the config file.
+   Every token below becomes a utility — `--color-accent` gives you
+   `bg-accent`, `text-accent`, `border-accent`, and so on.
+   ---------------------------------------------------------------- */
+
+@theme {
+  --color-bg: #101014;
+  --color-surface: #17171d;
+  --color-surface-2: #1e1e26;
+  --color-border: #2a2a34;
+  --color-text: #e8e6e1;
+  --color-muted: #8b8a94;
+  --color-accent: #8b7ff0; /* raven-violet */
+  --color-on-accent: #0f0e14;
+  --color-income: #5fb37a;
+  --color-expense: #e0685f;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-card: 14px;
+}
+
+/* Base element styling — the handful of global defaults that would be
+   noise to repeat on every element. Everything else is a utility. */
+@layer base {
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* Tailwind's preflight already zeroes margins; this keeps the old
+     border-box default for any element preflight doesn't cover. */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Focus rings: violet for inputs, light for buttons — matches the
+     original outline treatment rather than the browser default. */
+  input:focus-visible {
+    @apply outline-2 outline-offset-1 outline-accent border-transparent;
+  }
+
+  button:focus-visible {
+    @apply outline-2 outline-offset-2 outline-text;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
