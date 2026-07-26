@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist --dotfiles false"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "axios": "^1.7.9",
