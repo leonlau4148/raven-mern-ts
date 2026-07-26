@@ -7,5 +7,4 @@ import tailwindcss from '@tailwindcss/vite';
 // utility classes straight from index.css (no PostCSS config needed in v4).
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/raven-mern-ts/',
 });

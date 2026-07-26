@@ -2,8 +2,6 @@
 
 A MERN expense tracker written in TypeScript, styled with Tailwind CSS.
 
-Demo: https://leonlau4148.github.io/raven-mern-ts/
-
 Track income and expenses against a running balance. JWT authentication,
 per-user transaction history, amounts in PHP.
 
@@ -60,7 +58,7 @@ build.
 | client   | `npm run dev`       | Vite dev server with hot reload         |
 | client   | `npm run build`     | Typecheck, then build to `dist/`        |
 | client   | `npm run typecheck` | Typecheck only                          |
-| client   | `npm run deploy`    | Build and publish to GitHub Pages       |
+| client   | `npm run preview`   | Serve the production build locally      |
 | server   | `npm run dev`       | Run from TypeScript sources, watching   |
 | server   | `npm run build`     | Compile to `dist/`                      |
 | server   | `npm start`         | Run the compiled build                  |
@@ -68,11 +66,16 @@ build.
 
 ## Deployment notes
 
-The client is built for GitHub Pages, which is why it uses `HashRouter`
-and sets `base: '/raven-mern-ts/'` in
-[`client/vite.config.ts`](client/vite.config.ts). Renaming the repository
-means updating that `base` to match, or the published page will load but
-its assets will 404.
+The client deploys to Render as a Static Site, configured in
+[`render.yaml`](render.yaml). Pushing to `main` triggers a rebuild.
+
+Because the app uses `BrowserRouter`, the host must serve `index.html`
+for any unmatched path — otherwise refreshing on `/login` returns a 404.
+That rewrite is part of `render.yaml`; any other host needs the
+equivalent SPA fallback.
+
+The API the client talks to is set by `VITE_API_URL`. It is baked in at
+build time, not read at runtime, so changing it means rebuilding.
 
 The server builds to `dist/`, so a host should run `npm run build` and
 start with `npm start`.
