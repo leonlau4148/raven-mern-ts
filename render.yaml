@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: raven-mern-ts-api
+    name: raven-mern-ts
     runtime: node
     plan: free
     rootDir: server
